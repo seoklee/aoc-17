@@ -1,34 +1,29 @@
-from solution import Solution
+def parse_input(file):
+    file = open("input.txt", "r'")
+    return list(map(int, file.read().rstrip()))
 
 
-class SolutionDayOne(Solution):
-    def parse_input(self, test_input=None):
-        if test_input is None:
-            return list(self.file.read())
-        else:
-            return list(test_input)
+def part_one(input):
+    result = 0
+    for index, num in enumerate(input):
+        if num == input[(index+1) % len(input)]:
+            result += num
 
-    def solve_part_one(self, test_input=None):
-        result = 0
-        for index, num in enumerate(self.solution_input):
-            if index != len(self.solution_input)-1 and num == self.solution_input[index+1]:
-                result = result + int(num)
-            if index == len(self.solution_input)-1 and num == self.solution_input[0]:
-                result = result + int(num)
-        print result
-
-    def solve_part_two(self, test_input=None):
-        result = 0
-        for index, num in enumerate(self.solution_input):
-            if num == self.solution_input[(len(self.solution_input) / 2) + (int(index))]:
-                result = result + (int(num) * 2)
-
-            if index == (len(self.solution_input)/2)-1:
-                break
-        print result
+    return result
 
 
-if __name__ == "__main__":
-    day_one = SolutionDayOne()
-    day_one.solve_part_one()
-    day_one.solve_part_two()
+def part_two(input):
+    result = 0
+
+    for index, num in enumerate(input):
+        if num == input[(len(input) / 2) + (int(index))]:
+            result = result + (int(num) * 2)
+
+        if index == (len(input)/2) - 1:
+            break
+
+    return result
+
+print part_one(parse_input(file))
+print part_two(parse_input(file))
+
