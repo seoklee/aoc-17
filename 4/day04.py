@@ -1,35 +1,23 @@
-class SolutionDayFour(Solution):
-    def parse_input(self):
-        list = []
-        for line in self.file:
-            line = line.rstrip()
-            row = [x for x in line.split(" ")]
-            list.append(row)
-        return list
-
-    def solve_part_one(self, test_input=None):
-        result = 0
-        for row in self.solution_input:
-            x = set(row)
-            if len(row) == len(x):
-                result = result + 1
-        print result
-
-    def solve_part_two(self, test_input=None):
-        result = 0
-        for row in self.solution_input:
-            word_set = set()
-            for word in row:
-                sorted_word = ''.join(sorted(word))
-                word_set.add(sorted_word)
-
-            if len(word_set) == len(row):
-                result = result + 1
-
-        print result
+def parse_input():
+    file = open("input.txt", "r'")
+    return [line.rstrip().split(" ") for line in file]
 
 
-if __name__ == "__main__":
-    day_four = SolutionDayFour()
-    day_four.solve_part_one()
-    day_four.solve_part_two()
+def part_one(input):
+    result = 0
+    for row in input:
+        result += 1 if len(set(row)) == len(row) else 0
+    return result
+
+
+def part_two(input):
+    result = 0
+    for row in input:
+        word_set = set([''.join(sorted(word)) for word in row])
+        result += 1 if len(set(word_set)) == len(row) else 0
+
+    return result
+
+
+print part_one(parse_input())
+print part_two(parse_input())
